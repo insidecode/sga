@@ -1,0 +1,29 @@
+<%= form_for(@cidade) do |f| %>
+  <% if @cidade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cidade.errors.count, "error") %> prohibited this cidade from being saved:</h2>
+
+      <ul>
+      <% @cidade.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :Cidade %><br />
+    <%= f.text_field :nome %>
+  </div>
+  <div class="field">
+    <%= f.label :Estado %><br />
+    <%= f.text_field :uf %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+  <%= link_to 'Exibir registros de cidades', cidades_path %>
+
+<% end %>

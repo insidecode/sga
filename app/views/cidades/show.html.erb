@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<table border=1 width="300px">
+  <tr>
+     <td>
+	<p>
+	  <b>Cidade:</b>
+	  <%= @cidade.nome %>
+	</p>
+
+	<p>
+	  <b>Estado:</b>
+	  <%= @cidade.uf %>
+	</p>
+     </td>
+  </tr>
+  
+  <tr>
+    <td align=center>
+      <%= link_to 'Atualizar dados', edit_aluno_path(@cidade) %>
+    </td>
+  </tr>
+  
+  <tr>
+    <td align=center>   
+      <%= link_to 'Voltar', cidades_path %>
+    </td>
+  </tr>
+ 
+</table>

@@ -1,0 +1,78 @@
+<!- -----------Aluno------------ -->  
+
+<%= form_for(@aluno) do |f| %>
+  <% if @aluno.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@aluno.errors.count, "error") %> prohibited this aluno from being saved:</h2>
+
+      <ul>
+      <% @aluno.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nome %><br />
+    <%= f.text_field :nome %>
+  </div>
+  <div class="field">
+    <%= f.label :telefone %><br />
+    <%= f.text_field :telefone %>
+  </div>
+  <div class="field">
+    <%= f.label :celular %><br />
+    <%= f.text_field :celular %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :data_nascimento %><br />
+    <%= f.date_select :data_nascimento,
+			:prompt => {:day => 'Dia', :month => 'Mês', :year => 'Ano'},
+			:start_year => 1970, 
+			:order => [:day, :month, :year],
+			:use_month_names => %w(Janeiro Fevereiro Março Abril Maio Junho Julho Agosto Setembro Outubro 							Novembro Dezembro)
+    %>
+  </div>
+
+<!- -----------Endereço------------ --> 
+
+  <%= f.fields_for :endereco do |f_end| %>
+    <div class="field">
+    	<%= f_end.label :rua %><br />
+    	<%= f_end.text_field :rua %>
+    </div>
+    <div class="field">
+    	<%= f_end.label :numero %><br />
+    	<%= f_end.text_field :numero %>
+    </div>
+    <div class="field">
+    	<%= f_end.label :bairro %><br />
+    	<%= f_end.text_field :bairro %>
+    </div>
+    <div class="field">
+    	<%= f_end.label :complemento %><br />
+    	<%= f_end.text_field :complemento %>
+    </div>
+    <div class="field">
+    	<%= f_end.label :cep %><br />
+    	<%= f_end.text_field :cep %>
+    </div>
+    <div class="field">
+    	<%= f_end.label :Cidade %><br />
+	<%= f_end.collection_select :cidade_id, Cidade.all, :id, :nome %>
+	<%= link_to 'Adicionar nova cidade/estado', cidades_path %> <br/>
+    </div>
+  <% end %>
+
+<!- -----------Botão------------ --> 
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

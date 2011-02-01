@@ -1,0 +1,63 @@
+<h1 align=center>Lista de alunos</h1>
+
+<table>
+  <tr>
+    <th>Nome</th>
+    <th>Telefone</th>
+    <th>Celular</th>
+    <th>Email</th>
+    <th>Data nascimento</th>
+    <th>Rua</th>
+    <th>Número</th>
+    <th>Bairro</th>
+    <th>Complemento</th>
+    <th>Cep</th>
+    <th>Cidade</th>
+    <th>Estado</th>
+  </tr>
+
+<% @alunos.each do |aluno| %>
+  <tr>
+    <td ><%= aluno.nome %></td>
+    <td align=center><%= aluno.telefone %></td>
+    <td align=center><%= aluno.celular %></td>
+    <td align=center><%= aluno.email %></td>
+    <td align=center><%= aluno.data_nascimento %></td>
+    
+    <td><%= aluno.endereco.rua %></td>
+    <td align=center><%= aluno.endereco.numero %></td>
+    <td align=center><%= aluno.endereco.bairro %></td>
+    <td align=center><%= aluno.endereco.complemento %></td>
+    <td align=center><%= aluno.endereco.cep %></td>
+
+    <td><%= aluno.endereco.cidade.nome %></td>
+    <td align=center><%= aluno.endereco.cidade.uf %></td>
+    
+    <td>    
+      <%= link_to 'Exibir', aluno %> |
+      <%= link_to 'Editar', edit_aluno_path(aluno) %> |
+      <%= link_to 'Excluir', aluno, :confirm => 'Deseja realmente excluir o registro?', :method => :delete %>
+    </td>
+ 
+    <tr height="20px">
+    </tr>
+
+  </tr> 
+<% end %>
+</table>
+
+<br />
+
+<table border=1 width="250px">
+  <tr>
+    <td>
+	<%= link_to 'Adicionar novo aluno', new_aluno_path %> <br/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+	<%= link_to 'Exibir registros de cidades', cidades_path %>
+    </td>
+  </tr>
+</table>
+

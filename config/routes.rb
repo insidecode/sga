@@ -1,4 +1,8 @@
 Sga::Application.routes.draw do
+  resources :alunos
+
+  resources :cidades
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

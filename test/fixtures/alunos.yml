@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  nome: MyString
+  telefone: MyString
+  celular: MyString
+  email: MyString
+  data_nascimento: 2011-01-31
+  endereco_id: 1
+
+two:
+  nome: MyString
+  telefone: MyString
+  celular: MyString
+  email: MyString
+  data_nascimento: 2011-01-31
+  endereco_id: 1

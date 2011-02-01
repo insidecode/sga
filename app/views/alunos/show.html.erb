@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<table border=1 width="300px">
+  <tr>
+     <td>
+	<b>Nome:</b>
+	<%= @aluno.nome %>
+	<p>
+	  <b>Telefone:</b>
+	  <%= @aluno.telefone %>
+	</p>
+	<p>
+	  <b>Celular:</b>
+	  <%= @aluno.celular %>
+	</p>
+	<p>
+	  <b>Email:</b>
+	  <%= @aluno.email %>
+	</p>
+	<p>
+	  <b>Data nascimento:</b>
+	  <%= @aluno.data_nascimento %>
+	</p>
+	<p>
+	  <b>Rua:</b>
+	  <%= @aluno.endereco.rua %>
+	</p>
+	<p>
+	  <b>Número:</b>
+	  <%= @aluno.endereco.numero %>
+	</p>
+	<p>
+	  <b>Bairro:</b>
+	  <%= @aluno.endereco.bairro %>
+	</p>
+	<p>
+	  <b>Complemento:</b>
+	  <%= @aluno.endereco.complemento %>
+	</p>
+	<p>
+	  <b>Cep:</b>
+	  <%= @aluno.endereco.cep %>
+	</p>
+     </td>
+  </tr>
+  
+  <tr>
+    <td align=center>
+      <%= link_to 'Atualizar dados', edit_aluno_path(@aluno) %>
+    </td>
+  </tr>
+  
+  <tr>
+    <td align=center>   
+      <%= link_to 'Voltar', alunos_path %>
+    </td>
+  </tr>
+ 
+</table>

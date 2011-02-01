@@ -1,0 +1,40 @@
+<h1>Listando Cidades</h1>
+
+<table>
+  <tr>
+    <th>Nome da Cidade</th>
+    <th>Estado</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @cidades.each do |cidade| %>
+  <tr>
+    <td><%= cidade.nome %></td>
+    <td><%= cidade.uf %></td>
+    <td><%= link_to 'Exibir', cidade %></td>
+    <td><%= link_to 'Editar', edit_cidade_path(cidade) %></td>
+    <td><%= link_to 'Excluir', cidade, :confirm => 'Deseja realmente excluir registro?', :method => :delete %></td>
+  </tr>
+<% end %>
+
+</table>
+
+<br />
+
+<table border=1 width="250px">
+  <tr>
+    <td>
+	<%= link_to 'Adicionar nova cidade', new_cidade_path %> <br/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+	<%= link_to 'Exibir registros de alunos', alunos_path %>
+    </td>
+  </tr>
+</table>
+
+
+
