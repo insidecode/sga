@@ -1,0 +1,65 @@
+<div class="nav">
+	<span class="navButton">
+		<a class="create" href="<%%= new_<%= file_name %>_path %>">Novo</a>
+	</span>
+	<span class="navButton">
+		<a class="edit" href="#">Alterar</a>
+	</span>
+	<span class="navButton">
+		<a class="delete" href="#">Excluir</a>
+	</span>
+</div>
+
+<%%= flexigrid("Usuários", "usuarios", "#{<%= model_controller_routing_name %>_path}.json",
+	[
+		{ :field => "id", :display => "ID", :width => 50, :sortable => true, align: 'left', :searchable => true },
+		{ :field => "login", :display => "Usuário", :width => 80, :sortable => true, :align => "left", :searchable => true },
+		{ :field => "nome", :display => "Nome", :width => 150, :sortable => true, :align => 'left', :searchable => true },
+		{ :field => "sobrenome", :display => "Sobreome", :width => 150, :sortable => true, :align => 'left', :searchable => true },
+		{ :field => "role.name", :display => "Pefil", :width => 120, :sortable => true, :align => 'left', :searchable => true },
+	],
+	{
+		sort_name: "id",
+		use_pager: true,
+		use_rp: true,
+		rows_per_page: 10,
+		show_table_toggle_button: true,
+		width: 800,
+		height: 400,
+		single_select: true
+	}
+)%>
+
+<script type="text/javascript">
+$("a.edit").click(function() {
+
+  var grid = $("#usuarios");
+	var selected = grid.getSelectedRows();
+	
+	if (selected.length == 0) {
+		alert("Selecione um registro!");
+		return false;
+	}
+
+	window.location = "<%%= <%= model_controller_routing_name %>_path %>/" + selected + "/edit";
+});
+
+$("a.delete").click(function() {
+
+  var grid = jQuery("#usuarios");
+	var selected = grid.getSelectedRows();
+	
+	if (selected.length == 0) {
+		alert("Selecione um registro!");
+		return false;
+	}
+	
+	var url = "<%%= <%= model_controller_routing_name %>_path %>/" + selected;
+	
+	$.post(url, { _method: "delete" },
+    function(response) {
+			grid.flexReload();
+  	}
+  );
+});
+</script>

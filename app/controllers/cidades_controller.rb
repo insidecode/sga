@@ -2,11 +2,18 @@ class CidadesController < ApplicationController
   # GET /cidades
   # GET /cidades.xml
   def index
-    @cidades = Cidade.all
 
+    page = params[:page]
+    rp = params[:rp]
+
+    @cidades = Cidade.flexigrid_find(params)
+    total = @cidades.size
+    @cidades = @cidades.paginate({:page => page, :per_page => rp})
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @cidades }
+      format.json { render :json => @cidades.to_flexigrid_json([:id, :uf, :nome], page, total)}
     end
   end
 
@@ -44,7 +51,7 @@ class CidadesController < ApplicationController
 
     respond_to do |format|
       if @cidade.save
-        format.html { redirect_to(@cidade, :notice => 'Registro foi criado com sucesso!') }
+        format.html { redirect_to(cidades_path, :notice => 'Registro foi criado com sucesso!') }
         format.xml  { render :xml => @cidade, :status => :created, :location => @cidade }
       else
         format.html { render :action => "new" }
@@ -60,7 +67,7 @@ class CidadesController < ApplicationController
 
     respond_to do |format|
       if @cidade.update_attributes(params[:cidade])
-        format.html { redirect_to(@cidade, :notice => 'Registro foi atualizado com sucesso!') }
+        format.html { redirect_to(cidades_path, :notice => 'Registro foi atualizado com sucesso!') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

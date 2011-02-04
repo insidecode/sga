@@ -1,0 +1,76 @@
+Inside Code Rails Flexigrid
+===========================
+
+This Rails plugin allows you to add jQuery Flexigrid into your applications.
+
+Following features are supported :
+
+- Ajax enabled
+- Sorting
+- Pagination
+- Search
+
+Site : http://insidecode.com.br
+My Twitter account : http://twitter.com/leonardom
+
+Usage
+=====
+
+Install rails plugin
+
+rails plugin install git://github.com/insidecode/insidecode_rails_flexigrid
+
+In the view, open your layout and add the require JavaScript and CSS in the header:
+
+<%= flexigrid_stylesheets %>
+
+<%= flexigrid_javascripts %>
+
+In the controller, you use the method to_flexigrid_json to gererate the required JSON for you. Example:
+
+def index
+
+  page = params[:page]
+  rp = params[:rp]
+  
+  @countries = Country.flexigrid_find(params)
+  
+  total = @countries.size
+  
+  @countries = @countries.paginate({:page => page, :per_page => rp})
+  
+  respond_to do |format|
+    format.html # index.html.erb
+    format.json { render :json => @countries.to_flexigrid_json(
+																			[:iso, :name, :printable_name, :numcode], 
+                                      page, total) }
+  end
+
+end
+
+And then to create a datagrid in you view, use the helper method flexigrid. Example:
+
+<%= flexigrid("Countries", "flex1", countries_path + ".json",
+	[
+		{ :field => "iso", :display => "ISO", :width => 40, :sortable => true, align: 'center', :searchable => true },
+		{ :field => "name", :display => "Name", :width => 180, :sortable => true, :align => "left", :searchable => true },
+		{ :field => "printable_name", :display => "Printable Name", :sortable => true, :width => 120, :align => 'left', :searchable => true },
+		{ :field => "numcode", :display => "Number Code", :sortable => true, :width => 80, :searchable => true }
+	],
+	{
+		sort_name: "iso",
+		sort_order: "asc",
+		use_pager: true,
+		title: 'Countries',
+		use_rp: true,
+		rows_per_page: 10,
+		show_table_toggle_button: true,
+		width: 800,
+		height: 400,
+		single_select: true
+	}
+)%>
+
+== Copyright
+
+Copyright (c) 2010 Leonardo Marcelino, released under the MIT license

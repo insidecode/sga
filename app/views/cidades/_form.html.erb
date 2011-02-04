@@ -1,29 +1,48 @@
-<%= form_for(@cidade) do |f| %>
-  <% if @cidade.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@cidade.errors.count, "error") %> prohibited this cidade from being saved:</h2>
+<%= form_for(@cidade, :html => {:class => "form"} ) do |f| %>
+	<div id="clienteTab" class="insidecode-blue-border">
 
-      <ul>
-      <% @cidade.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	<fieldset>
+		<% if @cidade.errors.any? %>
+		  <div id="error_explanation">
+		    <h3>Registro n&atilde;o foi salvo! Verifique os erros abaixo:</h3>
 
-  <div class="field">
-    <%= f.label :Cidade %><br />
-    <%= f.text_field :nome %>
-  </div>
-  <div class="field">
-    <%= f.label :Estado %><br />
-    <%= f.text_field :uf %>
-  </div>
+		    <ul>
+		    <% @cidade.errors.full_messages.each do |msg| %>
+		      <li><%= msg %></li>
+		    <% end %>
+		    </ul>
+		  </div>
+		<% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+		<fieldset class="nolegend">
+	          <p>
+	   	   <label><span>Nome:</span>
+		     <%= f.text_field :nome, :size => 30, :maxlength => 50 %>
+		   </label>
+	    	  </p>
+		</fieldset>
 
-  <%= link_to 'Exibir registros de cidades', cidades_path %>
+		<fieldset class="nolegend">
+    		  <p>
+		   <label><span>U.F.:</span>
+		     <%= f.text_field :uf, :size => 2, :maxlength => 2 %>
+	     	   </label>
+		  </p>
+		</fieldset>
+        </fieldset>	
+	<br/>
 
+	</div>
+	<br/>
+	
+	<div class="buttons">
+	  <button type="submit" class="positive">
+	      <img src="/images/icons/tick.png" alt=""/> 
+	      Salvar
+	  </button>
+	  <a href="<%= cidades_path %>" class="negative">
+	      <img src="/images/icons/cross.png" alt=""/>
+	      Cancelar
+	  </a>
+	</div>
 <% end %>

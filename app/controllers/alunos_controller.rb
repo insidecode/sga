@@ -2,11 +2,20 @@ class AlunosController < ApplicationController
   # GET /alunos
   # GET /alunos.xml
   def index
-    @alunos = Aluno.all
+
+    page = params[:page]
+    rp = params[:rp]
+
+    @alunos = Aluno.flexigrid_find(params)
+    total = @alunos.size
+    @alunos = @alunos.paginate({:page => page, :per_page => rp})
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @alunos }
+      format.xml  { render :xml => @enderecos }
+      format.json { render :json => @alunos.to_flexigrid_json([:id, :nome, :telefone, :celular, :email, :data_nascimento, "endereco.rua", "endereco.numero", "endereco.bairro", "endereco.complemento", "endereco.cep", "endereco.cidade.nome", "endereco.cidade.uf"], page, total)}
+
     end
   end
 
@@ -45,7 +54,7 @@ class AlunosController < ApplicationController
 
     respond_to do |format|
       if @aluno.save
-        format.html { redirect_to(@aluno, :notice => 'Registro foi gravado com sucesso!') }
+        format.html { redirect_to(alunos_path, :notice => 'Registro foi gravado com sucesso!') }
         format.xml  { render :xml => @aluno, :status => :created, :location => @aluno }
       else
         format.html { render :action => "new" }
@@ -61,7 +70,7 @@ class AlunosController < ApplicationController
 
     respond_to do |format|
       if @aluno.update_attributes(params[:aluno])
-        format.html { redirect_to(@aluno, :notice => 'Registro foi atualizado com sucesso!') }
+        format.html { redirect_to(alunos_path, :notice => 'Registro alterado com sucesso!') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

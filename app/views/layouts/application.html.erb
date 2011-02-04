@@ -1,14 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Sistema de Gestão de Alunos - INSIDE CODE </title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
+  <title>Global Service</title>
+  <%= stylesheet_link_tag 'insidecode', 'redmond/jquery-ui-1.8.4.custom.css', 'idtabs', 'superfish', 'jquery.windows-engine' %>
+
+  <%= javascript_include_tag 'jquery', 'rails', 'jquery-ui-1.8.4', 'jquery.maskedinput-1.2.2', 'jquery.idtabs', 'autocomplete-rails', 'jquery.hoverIntent','superfish', 'jquery.maskMoney', 'jquery.windows-engine', 'iColorPicker'%>
+
+	<%= flexigrid_stylesheets %>
+	<%= flexigrid_javascripts %> 
+	
   <%= csrf_meta_tag %>
+
 </head>
 <body>
 
-<%= yield %>
+	<div id="pagina">	
+	  <div id="topo">
+	    <div id="placeBar">
+	      <div id="menu">
+		<ul class="sf-menu"> 
+		  <li class="current"> 
+		    <a href="#" class="menu">Cadastros</a> 
+		      <ul>
+			<li class="current">
+			    <a href="<%= alunos_path %>">Alunos</a>
+			</li> 
+			<li class="current">
+			   <a href="<%= cidades_path %>">Cidades</a>
+			</li> 
+		     </ul> 
+		   </li>
+	         </ul>
+	       </div>
+	     </div>
+	   </div>
+	
+
+	<div id="conteudo">
+	   <%= yield %>
+	</div>		
+ 		
+	<div id="stick"></div>
+    </div>
+	
+	<footer id="rodape">
+    <div class="r">
+      <p id="watermark"><strong>INSIDE CODE</strong> - Copyright &copy; 2010 - Todos os direitos reservados</p>
+      <p id="insidecode">Desenvolvido por <strong>Inside Code Tecnologia</strong>&nbsp;&nbsp;[&nbsp;<a href="http://www.insidecode.com.br" target="_blank">www.insidecode.com.br</a>&nbsp;]</p>
+    </div>
+  </footer>
+
+  <script type="text/javascript">
+	 $('input.date').datepicker({ 
+		dateFormat: 'dd/mm/yy',
+		dayNames: [
+		'Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'
+		],
+		dayNamesMin: [
+		'D','S','T','Q','Q','S','S','D'
+		],
+		dayNamesShort: [
+		'Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'
+		],
+		monthNames: [
+		'Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro',
+		'Outubro','Novembro','Dezembro'
+		],
+		monthNamesShort: [
+		'Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set',
+		'Out','Nov','Dez'
+		],
+		nextText: 'Próximo',
+		prevText: 'Anterior'
+	});
+
+  </script>
 
 </body>
 </html>
+
+<script type="text/javascript">
+	$("input.date").mask("99/99/9999",{placeholder:" "});
+	$("input.zipcode").mask("99999-999",{placeholder:" "});
+	$("input.phone").mask("(99) 9999-9999",{placeholder:" "});
+	$("input.decimal").maskMoney({symbol:"R$", decimal:",", thousands:"."});
+	$("input.placa").mask("***-9999",{placeholder:" "});
+	$('ul.sf-menu').superfish();
+
+	<%= yield :js %>
+
+</script>

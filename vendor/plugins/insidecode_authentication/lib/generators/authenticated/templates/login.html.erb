@@ -1,0 +1,27 @@
+<div id="loginForm">
+	<%%= form_tag <%= controller_routing_name %>_path do %>
+	<fieldset>
+		<legend class="login">Login</legend>
+    <fieldset class="nolegend">
+			<p>
+    		<label><span><strong>Usu&aacute;rio:</strong></span>
+				<%%= text_field_tag 'login', '', :size => 40, :class => 'username' %>
+				</label>
+     	</p>
+    </fieldset>
+
+    <fieldset class="nolegend">
+			<p>
+				<label><span><strong>Senha:</strong></span>
+					<%%= password_field_tag 'password', '', :size => 40, :class => 'password' %>
+				</label>
+			</p>
+    </fieldset>
+		<div class="buttons loginButtons">
+		  <button type="submit" class="positive">
+					<%%= image_tag('icons/tick.png') %>
+		      Entrar
+		  </button>
+		</div>
+	<%% end %>
+</div>

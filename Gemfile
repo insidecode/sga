@@ -7,6 +7,8 @@ gem 'rails', '3.0.0'
 
 gem 'mysql2'
 
+gem 'will_paginate', :git => 'git://github.com/mislav/will_paginate.git', :branch => 'rails3'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

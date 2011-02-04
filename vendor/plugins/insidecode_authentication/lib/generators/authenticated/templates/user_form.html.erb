@@ -1,0 +1,76 @@
+<%%= form_for(@<%= file_name %>, :html => {:class => "form"} ) do |f| %>
+	<%% if @<%= file_name %>.errors.any? %>
+	  <div id="error_explanation">
+	    <h3>Registro n&atilde;o foi salvo! Verifique os erros abaixo:</h3>
+
+	    <ul>
+	    <%% @<%= file_name %>.errors.full_messages.each do |msg| %>
+	      <li><%%= msg %></li>
+	    <%% end %>
+	    </ul>
+	  </div>
+	<%% end %>
+
+	<div id="@<%= file_name %>Tab" class="insidecode-blue">
+	<fieldset>
+		<fieldset class="nolegend">
+			<p>
+	   		<label><span>Login:</span>
+				<%%= f.text_field :login, :size => 40, :maxlegth => 40 %>
+				</label>
+	    	</p>
+		</fieldset>
+
+		<fieldset class="nolegend">
+    	<p>
+				<label><span>Nome:</span>
+	     	<%%= f.text_field :nome, :size => 40, :maxlength => 40 %>
+	     	</label>
+			</p>
+		</fieldset>
+
+		<fieldset class="nolegend">
+    	<p>
+				<label><span>Sobrenome:</span>
+	     	<%%= f.text_field :sobrenome, :size => 40, :maxlength => 60 %>
+	     	</label>
+			</p>
+		</fieldset>
+		<fieldset class="nolegend">
+    	<p>
+				<label><span>Senha:</span>
+	     	<%%= f.password_field :password, :size => 30 %>
+	     	</label>
+			</p>
+		</fieldset>
+		<fieldset class="nolegend">
+    	<p>
+				<label><span>Redigite a senha:</span>
+	     	<%%= f.password_field :password_confirmation, :size => 30 %>
+	     	</label>
+			</p>
+		</fieldset>
+		<fieldset class="nolegend">
+    	<p>
+				<label><span>Perfil:</span>
+	     	<%%= f.collection_select :role_id, Role.all, :id, :name %>
+	     	</label>
+			</p>
+		</fieldset>
+	</fieldset>
+	
+	</div>
+	
+	<br/>
+	
+	<div class="buttons">
+	  <button type="submit" class="positive">
+				<%%= image_tag('icons/tick.png') %>
+	      Salvar
+	  </button>
+	  <a href="<%%= <%= model_controller_plural_name %> %>" class="negative">
+				<%%= image_tag('icons/cross.png') %>
+	      Cancelar
+	  </a>
+	</div>
+<%% end %>

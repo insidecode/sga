@@ -1,63 +1,81 @@
-<h1 align=center>Lista de alunos</h1>
+<div class="nav">
+	<span class="navButton">
+		<a class="create" href="<%= new_aluno_path %>">Nova</a>
+	</span>
+	<span class="navButton">
+		<a class="edit" href="#">Alterar</a>
+	</span>
+	<span class="navButton">
+		<a class="delete" href="#">Excluir</a>
+	</span>
+</div>
 
-<table>
-  <tr>
-    <th>Nome</th>
-    <th>Telefone</th>
-    <th>Celular</th>
-    <th>Email</th>
-    <th>Data nascimento</th>
-    <th>Rua</th>
-    <th>Número</th>
-    <th>Bairro</th>
-    <th>Complemento</th>
-    <th>Cep</th>
-    <th>Cidade</th>
-    <th>Estado</th>
-  </tr>
+<%= flexigrid("Alunos", "alunos", alunos_path + ".json", 
+	[
+		{ :field => "id", :display => "ID", :width => 30, :sortable => true, align: 'center', :searchable => true },   
+		{ :field => "nome", :display => "Nome", :width => 180, :sortable => true, :align => 'left', :searchable => true },               
+        	{ :field => "telefone", :display => "Telefone", :width => 100, :sortable => true, :align => 'center', :searchable => true },
+		{ :field => "celular", :display => "Celular", :width => 100, :sortable => true, :align => 'center', :searchable => true }, 
+		{ :field => "email", :display => "E-mail", :width => 150, :sortable => true, :align => 'left', :searchable => true },  
+		{ :field => "data_nascimento", :display => "Data de Nascimento", :width => 100, :sortable => true, :align => 'center', :searchable => true },
+		{ :field => "endereco.rua", :display => "Rua", :width => 180, :sortable => true, :sortable => true, :searchable => true, :align => 'left',},	
+		{ :field => "endereco.numero", :display => "Número", :width => 40, :sortable => true, :align => 'center', :searchable => true }, 
+		{ :field => "endereco.bairro", :display => "Bairro", :width => 100, :sortable => true, :align => 'left', :searchable => true }, 
+		{ :field => "endereco.complemento", :display => "Complemento", :width => 100, :sortable => true, :align => 'left', :searchable => true },  
+		{ :field => "endereco.cep", :display => "Cep", :width => 80, :sortable => true, :align => 'left', :searchable => true }, 
+		{ :field => "endereco.cidade.nome", :display => "Cidade", :width => 150, :sortable => true, :align => 'left', :searchable => true },   
+		{ :field => "endereco.cidade.uf", :display => "U.F.", :width => 30, :sortable => true, :align => 'center', :searchable => true } 
+	],
 
-<% @alunos.each do |aluno| %>
-  <tr>
-    <td ><%= aluno.nome %></td>
-    <td align=center><%= aluno.telefone %></td>
-    <td align=center><%= aluno.celular %></td>
-    <td align=center><%= aluno.email %></td>
-    <td align=center><%= aluno.data_nascimento %></td>
-    
-    <td><%= aluno.endereco.rua %></td>
-    <td align=center><%= aluno.endereco.numero %></td>
-    <td align=center><%= aluno.endereco.bairro %></td>
-    <td align=center><%= aluno.endereco.complemento %></td>
-    <td align=center><%= aluno.endereco.cep %></td>
+{
+  sort_name: "id",
+  sort_order: "asc",
+  use_pager: true,                
+  use_rp: true,
+  rows_per_page: 10,
+  show_table_toggle_button: true,
+  width: "'100%'",
+  height: 400,
+  single_select: true
+}
+)%> 
 
-    <td><%= aluno.endereco.cidade.nome %></td>
-    <td align=center><%= aluno.endereco.cidade.uf %></td>
-    
-    <td>    
-      <%= link_to 'Exibir', aluno %> |
-      <%= link_to 'Editar', edit_aluno_path(aluno) %> |
-      <%= link_to 'Excluir', aluno, :confirm => 'Deseja realmente excluir o registro?', :method => :delete %>
-    </td>
- 
-    <tr height="20px">
-    </tr>
+<% content_for :js do %>
 
-  </tr> 
+
+$("a.edit").click(function() {
+
+  var grid = $("#alunos");
+	var rowKey = grid.getSelectedRows();
+	
+	if (rowKey.length == 0){
+		alert("Selecione um registro!");
+		return false;		
+	}else{
+		window.location = "<%= alunos_path %>/" + rowKey + "/edit";
+	}
+});
+
+$("a.delete").click(function() {
+
+  var grid = jQuery("#alunos");
+	var rowKey = grid.getSelectedRows();
+	
+	if (rowKey.length == 0) {
+		alert("Selecione um registro!");
+		return false;
+	}
+	
+	var url = "<%= alunos_path %>/" + rowKey;
+	
+	$.post(url, { _method: "delete" },
+	    function(response) {
+				grid.flexReload();
+	  	}
+	  );
+});
 <% end %>
-</table>
 
-<br />
 
-<table border=1 width="250px">
-  <tr>
-    <td>
-	<%= link_to 'Adicionar novo aluno', new_aluno_path %> <br/>
-    </td>
-  </tr>
-  <tr>
-    <td>
-	<%= link_to 'Exibir registros de cidades', cidades_path %>
-    </td>
-  </tr>
-</table>
+
 

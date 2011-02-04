@@ -1,0 +1,73 @@
+/* style for usual tabs */
+
+.insidecode-blue {
+  width:99.8%;
+  border:1px solid #85b1de;
+  font-weight: bold;
+}
+
+.insidecode-blue ul { 
+	display: block;
+	background: url('/images/idtab_bg.png') repeat-x scroll 50% 50%;
+	height: 28px;
+	margin: 0;
+	padding: 5px 5px 0 10px;
+}
+
+.insidecode-blue li { 
+	list-style:none; 
+	float:left; 
+	margin-left: 2px;
+}
+
+.insidecode-blue ul a {
+  display:block;
+  padding:6px 10px;
+  text-decoration:none!important;
+  margin:1px;
+  margin-left:0;  
+  color:#3F5987;
+  background:#DAEAF6;
+	outline: none;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+}
+
+.insidecode-blue ul a:hover {
+  color:#FFF;
+  background:#6FA7D1;
+}
+
+.insidecode-blue ul a.selected {
+  margin-bottom:0;
+  color:#E28F7F;
+  background:#FFF;
+  border-bottom:1px solid #fff;
+  cursor:default;
+}
+
+.insidecode-blue div {
+  padding:10px 10px 8px 10px;
+  *padding-top:3px;
+  *margin-top:-15px;
+  clear:left;
+  background:#fff;
+}
+
+.insidecode-blue div a { 
+	color:#000; 
+	font-weight:bold; 
+}
+
+#message {
+  margin:10px auto;
+  border:6px solid #222;
+  width:240px;
+  height:40px;
+  background:#0D0D0D;
+  font-size:1.3em;
+  line-height:2em;
+  color:#FC4;
+}

@@ -1,78 +1,165 @@
-<!- -----------Aluno------------ -->  
+<%= form_for(@aluno, :html => {:class => "form"} ) do |f| %>
+	<div id="clienteTab" class="insidecode-blue-border">
 
-<%= form_for(@aluno) do |f| %>
-  <% if @aluno.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@aluno.errors.count, "error") %> prohibited this aluno from being saved:</h2>
+	<fieldset>
+		<% if @aluno.errors.any? %>
+		  <div id="error_explanation">
+		    <h3>Registro n&atilde;o foi salvo! Verifique os erros abaixo:</h3>
 
-      <ul>
-      <% @aluno.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+		    <ul>
+		    <% @aluno.errors.full_messages.each do |msg| %>
+		      <li><%= msg %></li>
+		    <% end %>
+		    </ul>
+		  </div>
+		<% end %>
 
-  <div class="field">
-    <%= f.label :nome %><br />
-    <%= f.text_field :nome %>
-  </div>
-  <div class="field">
-    <%= f.label :telefone %><br />
-    <%= f.text_field :telefone %>
-  </div>
-  <div class="field">
-    <%= f.label :celular %><br />
-    <%= f.text_field :celular %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :data_nascimento %><br />
-    <%= f.date_select :data_nascimento,
-			:prompt => {:day => 'Dia', :month => 'Mês', :year => 'Ano'},
-			:start_year => 1970, 
-			:order => [:day, :month, :year],
-			:use_month_names => %w(Janeiro Fevereiro Março Abril Maio Junho Julho Agosto Setembro Outubro 							Novembro Dezembro)
-    %>
-  </div>
+	<!-- INICIO DIV I -->
+	<div style="float:left;">
+		<!-- Nome -->
+		<div style="float:left;">		
+		<fieldset class="nolegend">
+	          <p>
+	   	   <label><span>Nome Completo:</span>
+		     <%= f.text_field :nome, :size => 30, :maxlength => 100 %>
+		   </label>
+	    	  </p>
+		</fieldset>
+		</div>
 
-<!- -----------Endereço------------ --> 
+		<!-- Endereco -->
+		<div style="float:left;">		
+	        <%= f.fields_for :endereco do |e| %>
+	        <fieldset class="nolegend">
+    		  <p>
+		   <label><span>Endereço:</span>
+		     <%= e.text_field :rua, :size => 30, :maxlength => 100 %>
+	     	   </label>
+		  </p>
+		</fieldset>
+		</div>
 
-  <%= f.fields_for :endereco do |f_end| %>
-    <div class="field">
-    	<%= f_end.label :rua %><br />
-    	<%= f_end.text_field :rua %>
-    </div>
-    <div class="field">
-    	<%= f_end.label :numero %><br />
-    	<%= f_end.text_field :numero %>
-    </div>
-    <div class="field">
-    	<%= f_end.label :bairro %><br />
-    	<%= f_end.text_field :bairro %>
-    </div>
-    <div class="field">
-    	<%= f_end.label :complemento %><br />
-    	<%= f_end.text_field :complemento %>
-    </div>
-    <div class="field">
-    	<%= f_end.label :cep %><br />
-    	<%= f_end.text_field :cep %>
-    </div>
-    <div class="field">
-    	<%= f_end.label :Cidade %><br />
-	<%= f_end.collection_select :cidade_id, Cidade.all, :id, :nome %>
-	<%= link_to 'Adicionar nova cidade/estado', cidades_path %> <br/>
-    </div>
-  <% end %>
+		<!-- Numero -->
+		<div style="float:left;">
+		<fieldset class="nolegend">
+    		  <p>
+		   <label><span>Número:</span>
+		     <%= e.text_field :numero, :size => 7, :maxlength => 100 %>
+	     	   </label>
+		  </p>
+		</fieldset>
+		</div>
 
-<!- -----------Botão------------ --> 
+		<!-- Bairro -->
+		<div style="float:left;">
+		<fieldset class="nolegend">
+    		  <p>
+		   <label><span>Bairro:</span>
+		     <%= e.text_field :bairro, :size => 25, :maxlength => 100 %>
+	     	   </label>
+		  </p>
+		</fieldset>
+		</div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+		<!-- Complemento -->
+		<div style="float:left;">
+		<fieldset class="nolegend">
+    		  <p>
+		   <label><span>Complemento:</span>
+		     <%= e.text_field :complemento, :size => 25, :maxlength => 100 %>
+	     	   </label>
+		  </p>
+		</fieldset>
+		</div>
+
+		<!-- Cep -->
+		<div style="float:left;">
+		<fieldset class="nolegend">
+    		  <p>
+		   <label><span>Cep:</span>
+		     <%= e.text_field :cep, :size => 25, :maxlength => 100 %>
+	     	   </label>
+		  </p>
+		</fieldset>
+		</div>
+
+		<!-- FINAL DIV I -->
+		</div>
+
+		<!-- INICIO DIV II -->		
+		<div style="float:left;">
+		
+		<!-- Telefone -->		 
+		<div style="float:left;">
+		<fieldset class="nolegend">
+    		  <p>
+		   <label><span>Telefone:</span>
+		     <%= f.text_field :telefone, :size => 30, :maxlength => 15 %>
+	     	   </label>
+		  </p>
+		</fieldset>
+		</div>
+
+		<!-- Celular -->
+		<div style="float:left;">
+		<fieldset class="nolegend">
+    		  <p>
+		   <label><span>Celular:</span>
+		     <%= f.text_field :celular, :size => 30, :maxlength => 15 %>
+	     	   </label>
+		  </p>
+		</fieldset>
+		</div>
+
+		<!-- Email -->
+		<div style="float:left;">
+		<fieldset class="nolegend">
+    		  <p>
+		   <label><span>E-Mail:</span>
+		     <%= f.text_field :email, :size => 35, :maxlength => 100 %>
+	     	   </label>
+		  </p>
+		</fieldset>
+		</div>
+
+		<!-- Data Nascimento -->
+		<div style="float:left;">		
+		<fieldset class="nolegend">
+    		  <p>
+		   <label><span>Data de Nascimento:</label><span>
+		     <%= f.text_field :data_nascimento, :size => 25, :maxlength=>12, :class => "date", :id => "data_inicial", :value => formata_data(@aluno.data_nascimento) %>
+		  </p>
+		</fieldset> 
+		</div>
+
+		<!-- Cidade -->
+		<div style="float:left;">
+		<fieldset class="nolegend">
+    		  <p>
+		   <label><span>Cidade:</span>
+		     <%= e.collection_select :cidade_id, Cidade.all, :id, :nome, :size => 80 %>
+      	   	   </label>
+		  </p>
+		</fieldset>
+		</div>
+
+	<!-- FINAL DIV II -->
+	</div>
+	</fieldset>
+	
+	<br/>
+	</div>
+	<% end %>
+	<br/>
+	
+	<div class="buttons">
+	  <button type="submit" class="positive">
+	      <img src="/images/icons/tick.png" alt=""/> 
+	      Salvar
+	  </button>
+	  <a href="<%= alunos_path %>" class="negative">
+	      <img src="/images/icons/cross.png" alt=""/>
+	      Cancelar
+	  </a>
+	</div>
 <% end %>

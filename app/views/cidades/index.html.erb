@@ -1,40 +1,69 @@
-<h1>Listando Cidades</h1>
+<div class="nav">
+	<span class="navButton">
+		<a class="create" href="<%= new_cidade_path %>">Nova</a>
+	</span>
+	<span class="navButton">
+		<a class="edit" href="#">Alterar</a>
+	</span>
+	<span class="navButton">
+		<a class="delete" href="#">Excluir</a>
+	</span>
+</div>
 
-<table>
-  <tr>
-    <th>Nome da Cidade</th>
-    <th>Estado</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<%= flexigrid("Cidades", "cidades", cidades_path + ".json",
+	[
+		{ :field => "id", :display => "ID", :width => 30, :sortable => true, align: 'center', :searchable => true },                
+                { :field => "uf", :display => "U.F.", :sortable => true, :width => 30, :align => 'left', :searchable => true },
+		{ :field => "nome", :display => "Nome", :sortable => true, :width => 200, :align => 'left', :searchable => true }                
+],
+{
+  sort_name: "id",
+  sort_order: "asc",
+  use_pager: true,                
+  use_rp: true,
+  rows_per_page: 10,
+  show_table_toggle_button: true,
+  width: "'100%'",
+  height: 400,
+  single_select: true
+}
+)%> 
 
-<% @cidades.each do |cidade| %>
-  <tr>
-    <td><%= cidade.nome %></td>
-    <td><%= cidade.uf %></td>
-    <td><%= link_to 'Exibir', cidade %></td>
-    <td><%= link_to 'Editar', edit_cidade_path(cidade) %></td>
-    <td><%= link_to 'Excluir', cidade, :confirm => 'Deseja realmente excluir registro?', :method => :delete %></td>
-  </tr>
+<% content_for :js do %>
+
+
+$("a.edit").click(function() {
+
+  var grid = $("#cidades");
+	var rowKey = grid.getSelectedRows();
+	
+	if (rowKey.length == 0){
+		alert("Selecione um registro!");
+		return false;		
+	}else{
+		window.location = "<%= cidades_path %>/" + rowKey + "/edit";
+	}
+});
+
+$("a.delete").click(function() {
+
+  var grid = jQuery("#cidades");
+	var rowKey = grid.getSelectedRows();
+	
+	if (rowKey.length == 0) {
+		alert("Selecione um registro!");
+		return false;
+	}
+	
+	var url = "<%= cidades_path %>/" + rowKey;
+	
+	$.post(url, { _method: "delete" },
+	    function(response) {
+				grid.flexReload();
+	  	}
+	  );
+});
 <% end %>
-
-</table>
-
-<br />
-
-<table border=1 width="250px">
-  <tr>
-    <td>
-	<%= link_to 'Adicionar nova cidade', new_cidade_path %> <br/>
-    </td>
-  </tr>
-  <tr>
-    <td>
-	<%= link_to 'Exibir registros de alunos', alunos_path %>
-    </td>
-  </tr>
-</table>
 
 
 
